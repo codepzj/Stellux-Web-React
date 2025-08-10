@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Markdown } from "@/components/business/md";
 import { ScrollToc } from "@/components/business/toc";
 import { PersistentDocumentLayout } from "@/components/basic/layout/persistent-document-layout";
-import { LoadingIndicator } from "@/components/basic/tool/loading-indicator";
+import Loading from "@/components/basic/loading";
 import { ErrorPage } from "@/components/basic/tool/error-page";
 import { useDocumentState } from "@/hooks/useDocumentState";
 import { BackToTop } from "@/components/basic/tool/back-to-top";
@@ -34,7 +34,7 @@ export default function DocPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[100vh] bg-white dark:bg-gray-950">
-        <LoadingIndicator message="加载中..." />
+        <Loading />
       </div>
     );
   }

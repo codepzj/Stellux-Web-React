@@ -33,45 +33,25 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Home />
-          </Suspense>
-        ),
+        element: <Home />,
       },
       {
         path: "blog",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <BlogList />
-          </Suspense>
-        ),
+        element: <BlogList />,
       },
       {
         path: "blog/:alias",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <BlogContent />
-          </Suspense>
-        ),
+        element: <BlogContent />,
       },
       {
         path: "document",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <DocumentList />
-          </Suspense>
-        ),
+        element: <DocumentList />,
       },
     ],
   },
   {
     path: "document",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <DocumentLayout />
-      </Suspense>
-    ),
+    element: <DocumentLayout />,
     children: [
       {
         path: ":root/:sub?",

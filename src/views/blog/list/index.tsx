@@ -22,7 +22,7 @@ import {
 import { Search } from "./search";
 import { SearchProvider } from "./provider";
 import { useSearchParams, useNavigate } from "react-router";
-import { ErrorPage } from "@/components/basic/error-page";
+import { ErrorPage } from "@/components/basic/tool/error-page";
 
 export default function BlogList() {
   const [searchParams] = useSearchParams();

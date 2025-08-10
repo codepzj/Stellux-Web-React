@@ -43,7 +43,7 @@ export default function DocumentPage() {
                 <div className="flex items-center gap-2 mb-2">
                   <IconBook2 className="w-7 h-7 text-blue-500 dark:text-blue-300" />
                   <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Go语言中文网文档
+                    文档
                   </span>
                 </div>
                 <div className="text-gray-600 dark:text-gray-400 text-base">

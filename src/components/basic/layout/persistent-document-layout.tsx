@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DocSidebar } from "@/views/document/content/sidebar";
 import { convertToDocumentTreeData } from "@/utils/document-tree";
-import { ErrorPage } from "@/components/basic/error-page";
+import { ErrorPage } from "@/components/basic/tool/error-page";
 import type { DocumentContentVO } from "@/types/document-content";
 
 interface PersistentDocumentLayoutProps {
@@ -32,7 +32,7 @@ export function PersistentDocumentLayout({
   // 计算文档树数据
   const treeItems = useMemo(
     () => convertToDocumentTreeData(documentContentList, rootAlias),
-    [documentContentList, rootAlias],
+    [documentContentList, rootAlias]
   );
 
   // 检查是否需要重新渲染侧边栏

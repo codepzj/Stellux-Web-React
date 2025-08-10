@@ -69,7 +69,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-12 items-center justify-between px-4 mt-2 max-w-3xl rounded-lg shadow-xs bg-white/80 dark:bg-gray-950/80">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold text-lg">Go中文网</span>
+          <span className="font-bold text-lg">浩瀚星河</span>
         </Link>
 
         {/* 桌面导航 */}

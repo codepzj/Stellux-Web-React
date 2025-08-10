@@ -3,11 +3,11 @@ import { useParams } from "react-router";
 import { Markdown } from "@/components/business/md";
 import { ScrollToc } from "@/components/business/toc";
 import { PersistentDocumentLayout } from "@/components/basic/layout/persistent-document-layout";
-import { LoadingIndicator } from "@/components/basic/loading-indicator";
-import { ErrorPage } from "@/components/basic/error-page";
+import { LoadingIndicator } from "@/components/basic/tool/loading-indicator";
+import { ErrorPage } from "@/components/basic/tool/error-page";
 import { useDocumentState } from "@/hooks/useDocumentState";
-import { BackToTop } from "@/components/basic/back-to-top";
-import { SidebarToggle } from "@/components/basic/sidebar-toggle";
+import { BackToTop } from "@/components/basic/tool/back-to-top";
+import { SidebarToggle } from "@/components/basic/tool/sidebar-toggle";
 
 export default function DocPage() {
   // 获取路由参数

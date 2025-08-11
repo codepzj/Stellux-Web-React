@@ -47,7 +47,7 @@ export default function Md({
           p: ({ children }) => <p className="mt-4 leading-7">{children}</p>,
           blockquote: ({ children }) => {
             return (
-              <Alert className="blockquote" color="primary" title={children} />
+              <Alert className="blockquote" color="default" title={children} />
             );
           },
 

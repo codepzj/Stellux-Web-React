@@ -1,11 +1,5 @@
 :root {
-  --font-sans: "MiSans_VF", system-ui, sans-serif;
-
-  font-synthesis: style; /* 禁用字体抗锯齿 */
-  -webkit-font-smoothing: antialiased; /* 禁用字体抗锯齿 */
-  -moz-osx-font-smoothing: grayscale; /* 禁用字体抗锯齿 */
-  word-wrap: break-word; /* 自动换行 */
-  hyphens: auto; /* 自动断字 */
+  --font-sans: "Segoe UI", Segoe, Tahoma, Arial, Verdana, sans-serif;
 }
 
 @theme {

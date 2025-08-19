@@ -8,6 +8,48 @@ import "./md.css";
 import { cn } from "@/lib/utils";
 import { Alert, Image } from "@heroui/react";
 
+// 引入mermaid
+import mermaid from "mermaid";
+
+// 引入katex
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+
+// Mermaid渲染组件
+const Mermaid = ({ code }: { code: string }) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      const id = "mermaid-" + Math.random().toString(36).slice(2, 11);
+      ref.current.id = id;
+      mermaid.initialize({ startOnLoad: false });
+      ref.current.innerHTML = "";
+      mermaid
+        .render(id + "-svg", code)
+        .then(({ svg }) => {
+          if (ref.current) {
+            ref.current.innerHTML = svg;
+          }
+        })
+        .catch((e: any) => {
+          console.error(e);
+          if (ref.current) {
+            ref.current.innerHTML = `<pre>${code}</pre>`;
+          }
+        });
+    }
+  }, [code]);
+
+  return (
+    <div
+      ref={ref}
+      className="my-4 grid grid-cols-1 place-items-center overflow-x-auto"
+    />
+  );
+};
+
 export default function Md({
   content,
   className,
@@ -15,17 +57,16 @@ export default function Md({
   content: string;
   className?: string;
 }) {
-  let index = 1;
-
+  const indexRef = React.useRef(1);
   return (
     <article className={cn("markdown-body", className)}>
       <ReactMarkdown
-        rehypePlugins={[rehypeRaw, rehypeHighlight]}
-        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
+        remarkPlugins={[remarkGfm, remarkMath]}
         components={{
           h2: ({ children }) => (
             <h2
-              id={`header-${index++}`}
+              id={`header-${indexRef.current++}`}
               className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 my-6"
             >
               {children}
@@ -33,7 +74,7 @@ export default function Md({
           ),
           h3: ({ children }) => (
             <h3
-              id={`header-${index++}`}
+              id={`header-${indexRef.current++}`}
               className="scroll-m-20 text-2xl font-semibold tracking-tight my-4"
             >
               {children}
@@ -101,6 +142,17 @@ export default function Md({
                   ).length
                 : 0;
 
+            // 支持mermaid
+            if (match && match[1] === "mermaid") {
+              // 只取children的文本内容
+              const code =
+                typeof children === "string"
+                  ? children
+                  : React.Children.toArray(children)
+                      .map((c) => (typeof c === "string" ? c : ""))
+                      .join("");
+              return <Mermaid code={code} />;
+            }
             if (match?.length || count > 0) {
               const id = Math.random().toString(36).slice(2, 11);
               return (

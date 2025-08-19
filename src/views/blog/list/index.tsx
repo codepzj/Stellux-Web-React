@@ -43,7 +43,6 @@ export default function BlogList() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 去除异步竞态控制，直接请求
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -103,25 +102,18 @@ export default function BlogList() {
           <div className="container px-4 py-12 md:px-6 md:py-24">
             <div className="mx-auto max-w-5xl space-y-12">
               <section className="space-y-6">
-                {/* 顶部标题简约版，风格与文档页面一致 */}
-                <div className="flex flex-col items-center justify-center mb-8">
-                  <div className="flex items-center gap-2 mb-2">
-                    <IconBook2 className="w-7 h-7 text-blue-500 dark:text-blue-300" />
-                    <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                      博客
+                {/* 博客标题、总数和搜索框同一行 */}
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
+                  <div className="flex items-center gap-2">
+                    <IconBook2 className="w-6 h-6" />
+                    <span className="text-xl font-semibold">Posts</span>
+                    <span className="text-gray-500 text-sm ml-2">
+                      {pagination.total_count} 篇
                     </span>
                   </div>
-                  <div className="text-gray-600 dark:text-gray-400 text-base">
-                    共{" "}
-                    {loading ? pagination.total_count : pagination.total_count}{" "}
-                    篇博客
-                  </div>
+                  <Search className="md:w-36" />
                 </div>
                 <Spacer y={4} />
-                <div className="flex justify-end">
-                  <Search className="md:w-40" />
-                </div>
-                <Spacer y={16} />
                 <div className="flex flex-col gap-8 min-h-[600px]">
                   {loading ? (
                     Array.from({ length: skeletonCount }).map((_, idx) => (

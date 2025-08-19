@@ -55,8 +55,9 @@ export function SearchModal() {
                   key={post.id}
                   href={`/blog/${post.alias}`}
                   onClick={closeSearch}
+                  className="w-full"
                 >
-                  <div className="p-3 mb-2 rounded-lg bg-default-100/70 dark:bg-default-500/10 hover:bg-default-200 dark:hover:bg-white/10 transition cursor-pointer border border-transparent hover:border-default-300 dark:hover:border-zinc-800">
+                  <div className="w-full p-3 mb-2 rounded-lg bg-default-100/70 dark:bg-default-500/10 hover:bg-default-200 dark:hover:bg-white/10 transition cursor-pointer border border-transparent hover:border-default-300 dark:hover:border-zinc-800">
                     <div className="font-medium text-base text-foreground line-clamp-2">
                       {highlight(post.title, keyword)}
                     </div>

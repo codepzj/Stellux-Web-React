@@ -42,19 +42,17 @@ export default function DocumentPage() {
         <div className="container px-4 py-12 md:px-6 md:py-24">
           <div className="mx-auto max-w-5xl space-y-12">
             <section className="space-y-6">
-              {/* 顶部标题简约版 */}
-              <div className="flex flex-col items-center justify-center mb-8">
-                <div className="flex items-center gap-2 mb-2">
-                  <IconBook2 className="w-7 h-7 text-blue-500 dark:text-blue-300" />
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                    文档
+              {/* 顶部标题与总数样式与博客列表保持一致 */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
+                <div className="flex items-center gap-2">
+                  <IconBook2 className="w-6 h-6" />
+                  <span className="text-xl font-semibold">文档</span>
+                  <span className="text-gray-500 text-sm ml-2">
+                    {docList.length} 篇
                   </span>
                 </div>
-                <div className="text-gray-600 dark:text-gray-400 text-base">
-                  共 {docList.length} 篇文档
-                </div>
               </div>
-              <Spacer y={16} />
+              <Spacer y={4} />
               <div className="flex flex-col gap-8">
                 {loading ? (
                   Array.from({ length: 3 }).map((_, idx) => (

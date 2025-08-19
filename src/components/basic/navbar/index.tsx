@@ -1,7 +1,26 @@
 import { useState } from "react";
 import { Link } from "@heroui/react";
 import { useLocation } from "react-router";
-import { IconBrandGithub } from "@tabler/icons-react";
+
+// 自定义更密集、振幅更小、颜色为淡黑色的波浪线样式
+const WAVE_UNDERLINE_STYLE = `
+.nav-link-active {
+  position: relative;
+}
+.nav-link-active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 4px;
+  background-repeat: repeat-x;
+  background-size: 16px 4px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='4' viewBox='0 0 16 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2C2 2 2 0.5 4 0.5C6 0.5 6 3.5 8 3.5C10 3.5 10 0.5 12 0.5C14 0.5 14 2 16 2' stroke='%23909090' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+`;
 
 const NAV_LINKS = [
   { href: "/", label: "首页" },
@@ -14,22 +33,31 @@ function DesktopNav() {
   const currentPath = location.pathname.split("/")[1] || "/";
 
   return (
-    <nav className="hidden md:flex items-center space-x-6 ml-[-32px]">
-      {NAV_LINKS.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={`text-sm transition-colors duration-200 ${
+    <>
+      {/* 注入波浪线样式 */}
+      <style>{WAVE_UNDERLINE_STYLE}</style>
+      <nav className="hidden w-full md:flex items-center justify-end space-x-6">
+        {NAV_LINKS.map((item) => {
+          const isActive =
             currentPath === item.href.split("/")[1] ||
-            (currentPath === "/" && item.href === "/")
-              ? "text-primary font-medium"
-              : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
-          }`}
-        >
-          {item.label}
-        </Link>
-      ))}
-    </nav>
+            (currentPath === "/" && item.href === "/");
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`text-sm transition-colors duration-200 ${
+                isActive
+                  ? "text-primary font-medium nav-link-active"
+                  : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
+              }`}
+              style={{ position: "relative" }}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </>
   );
 }
 
@@ -63,7 +91,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-semibold text-primary hover:opacity-80 transition-opacity"
         >
-          浩瀚星河
+          Gopher
         </Link>
 
         {/* 桌面导航 */}
@@ -71,16 +99,6 @@ export default function Navbar() {
 
         {/* 右侧操作区 */}
         <div className="flex items-center space-x-4">
-          <Link
-            href="https://github.com/codepzj"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="GitHub"
-          >
-            <IconBrandGithub className="h-5 w-5" />
-          </Link>
-
           {/* 移动端菜单按钮 */}
           <button
             className="md:hidden text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"

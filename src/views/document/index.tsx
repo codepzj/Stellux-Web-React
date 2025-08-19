@@ -46,7 +46,7 @@ export default function DocumentPage() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
                 <div className="flex items-center gap-2">
                   <IconBook2 className="w-6 h-6" />
-                  <span className="text-xl font-semibold">文档</span>
+                  <span className="text-xl font-semibold">Docs</span>
                   <span className="text-gray-500 text-sm ml-2">
                     {docList.length} 篇
                   </span>

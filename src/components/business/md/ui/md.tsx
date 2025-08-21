@@ -50,6 +50,28 @@ const Mermaid = ({ code }: { code: string }) => {
   );
 };
 
+// 递归遍历AST，给所有h2/h3节点分配唯一id
+function addHeaderIds(ast: any) {
+  let headerIndex = 1;
+  function traverse(node: any) {
+    if (!node) return;
+    if (Array.isArray(node)) {
+      node.forEach(traverse);
+      return;
+    }
+    if (node.type === "heading" && (node.depth === 2 || node.depth === 3)) {
+      node.data = node.data || {};
+      node.data.hProperties = node.data.hProperties || {};
+      node.data.id = `header-${headerIndex++}`;
+      node.data.hProperties.id = node.data.id;
+    }
+    if (node.children) {
+      traverse(node.children);
+    }
+  }
+  traverse(ast);
+}
+
 export default function Md({
   content,
   className,
@@ -57,25 +79,37 @@ export default function Md({
   content: string;
   className?: string;
 }) {
-  const indexRef = React.useRef(1);
+  // 通过remark插件给h2/h3加唯一id
+  const addHeaderIdPlugin = () => (tree: any) => {
+    addHeaderIds(tree);
+  };
+
+  // 类型保护函数，安全获取id
+  function getHeaderId(node: any): string | undefined {
+    // rehype/remark 可能把id放在data.id 或 data.hProperties.id
+    return node?.data?.id || node?.data?.hProperties?.id;
+  }
+
   return (
     <article className={cn("markdown-body", className)}>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
-        remarkPlugins={[remarkGfm, remarkMath]}
+        remarkPlugins={[remarkGfm, remarkMath, addHeaderIdPlugin]}
         components={{
-          h2: ({ children }) => (
+          h2: ({ node, children, ...props }) => (
             <h2
-              id={`header-${indexRef.current++}`}
+              id={getHeaderId(node)}
               className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 my-6"
+              {...props}
             >
               {children}
             </h2>
           ),
-          h3: ({ children }) => (
+          h3: ({ node, children, ...props }) => (
             <h3
-              id={`header-${indexRef.current++}`}
+              id={getHeaderId(node)}
               className="scroll-m-20 text-2xl font-semibold tracking-tight my-4"
+              {...props}
             >
               {children}
             </h3>

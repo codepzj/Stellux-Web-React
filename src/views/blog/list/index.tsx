@@ -63,6 +63,10 @@ export default function BlogList() {
         } else {
           throw new Error("获取文章列表失败");
         }
+        // 回到顶部
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 300);
       } catch (error) {
         console.error(error);
         setError("获取博客列表失败，请稍后重试");

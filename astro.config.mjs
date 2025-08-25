@@ -7,6 +7,7 @@ import viteCompression from "vite-plugin-compression";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://www.golangblog.com",
   output: "server",
   adapter: node({ mode: "standalone" }),
   integrations: [react()],
@@ -61,6 +62,7 @@ export default defineConfig({
         "framer-motion",
         "highlight.js",
         "react-markdown",
+        "react-photo-view",
       ],
     },
   },

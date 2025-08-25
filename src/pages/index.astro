@@ -10,6 +10,12 @@ const { href } = Astro.url;
   <meta name="robots" content="index,follow" />
   <link rel="icon" href="/favicon.ico" />
   <link rel="canonical" href={href} />
+  
+  <!-- RSS Feeds -->
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml" />
+  <link rel="alternate" type="application/json" title="JSON Feed" href="/feed.json" />
+  
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Gopher" />
   <meta property="og:description" content="Gopher的个人技术博客,记录Golang学习与开发实践。" />

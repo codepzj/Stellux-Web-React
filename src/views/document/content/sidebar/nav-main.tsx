@@ -1,7 +1,7 @@
 import { Link } from "@heroui/react";
 import type { DocTreeItem } from "@/utils/document-tree";
 import { useLocation } from "react-router";
-import { IconChevronRight } from "@tabler/icons-react";
+import { ChevronRight } from "lucide-react";
 import { memo, useState, useEffect, useCallback } from "react";
 
 import {
@@ -82,7 +82,7 @@ const RecursiveMenuItem = memo(
             <SidebarMenuButton tooltip={item.title}>
               {item.icon && <item.icon className="w-4 h-4" />}
               <span className="truncate">{item.title}</span>
-              <IconChevronRight
+              <ChevronRight
                 className={cn(
                   "ml-auto transition-transform duration-200 ease-in-out",
                   open && "rotate-90",

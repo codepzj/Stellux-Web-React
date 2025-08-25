@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useParams } from "react-router";
 import { Markdown } from "@/components/business/md";
 import { ScrollToc } from "@/components/business/toc";
-import { PersistentDocumentLayout } from "@/components/basic/layout/persistent-document-layout";
+import { PersistentDocumentLayout } from "@/components/basic/layout/document-content-layout";
 import Loading from "@/components/basic/loading";
 import { ErrorPage } from "@/components/basic/tool/error-page";
 import { useDocumentState } from "@/hooks/useDocumentState";
@@ -40,14 +40,7 @@ export default function DocPage() {
   }
 
   if (error) {
-    return (
-      <ErrorPage
-        title="加载失败"
-        message={error}
-        code="ERROR"
-        onRefresh={() => window.location.reload()}
-      />
-    );
+    return <ErrorPage title="加载失败" message={error} />;
   }
 
   return (

@@ -1,0 +1,64 @@
+---
+export const prerender = false;
+import App from "@/App";
+
+import { getPostByAliasAPI } from "@/api/post";
+import { getDocumentByAlias } from "@/api/document";
+import { getAllDocumentContentByDocumentId } from "@/api/document-content";
+
+let title: string | undefined;
+let description: string | undefined;
+let image: string | undefined = "https://cdn.codepzj.cn/image/20250825180716208.png";
+
+const { pathname, href } = Astro.url;
+try {
+  if (pathname.startsWith("/blog/")) {
+    const parts = pathname.split("/").filter(Boolean); // ["blog", alias]
+    const alias = parts[1];
+    if (alias) {
+      const res = await getPostByAliasAPI(alias);
+      title = res.data?.title;
+      description = res.data?.description;
+      image = res.data?.thumbnail || image;
+    }
+  } else if (pathname.startsWith("/document/")) {
+    const parts = pathname.split("/").filter(Boolean); // ["document", root, sub?]
+    const root = parts[1];
+    const sub = parts[2];
+    if (root) {
+      const docRes = await getDocumentByAlias(root);
+      if (sub) {
+        const listRes = await getAllDocumentContentByDocumentId(docRes.data.id);
+        const found = (listRes.data || []).find((i) => i.alias === sub);
+        title = found?.title || docRes.data.title;
+        description = found?.description || docRes.data.description;
+      } else {
+        title = docRes.data.title;
+        description = docRes.data.description;
+        image = docRes.data.thumbnail || image;
+      }
+    }
+  }
+} catch {}
+---
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title ?? "Gopher"}</title>
+  <meta name="description" content={description ?? "Gopher的个人技术博客,记录Golang学习与开发实践。"} />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="canonical" href={href} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title ?? "Gopher"} />
+  <meta property="og:description" content={description ?? "Gopher的个人技术博客,记录Golang学习与开发实践。"} />
+  <meta property="og:url" content={href} />
+  <meta property="og:image" content={image ?? "https://cdn.codepzj.cn/image/20250825180716208.pn"} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title ?? "Gopher"} />
+  <meta name="twitter:description" content={description ?? "Gopher的个人技术博客,记录Golang学习与开发实践。"} />
+  <meta name="twitter:image" content={image ?? "https://cdn.codepzj.cn/image/20250825180716208.pn"} />
+</head>
+<App client:only="react" />
+
+

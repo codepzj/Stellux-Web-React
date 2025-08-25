@@ -1,0 +1,23 @@
+---
+import App from "@/App";
+const { href } = Astro.url;
+---
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gopher</title>
+  <meta name="description" content="Gopher的个人技术博客,记录Golang学习与开发实践。" />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="canonical" href={href} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Gopher" />
+  <meta property="og:description" content="Gopher的个人技术博客,记录Golang学习与开发实践。" />
+  <meta property="og:url" content={href} />
+  <meta property="og:image" content="https://cdn.codepzj.cn/image/20250825180716208.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gopher" />
+  <meta name="twitter:description" content="Gopher的个人技术博客,记录Golang学习与开发实践。" />
+  <meta name="twitter:image" content="https://cdn.codepzj.cn/image/20250825180716208.png" />
+</head>
+<App client:only="react" />

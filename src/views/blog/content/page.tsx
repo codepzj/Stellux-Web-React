@@ -57,21 +57,19 @@ export default function BlogContent() {
     fetchPost();
   }, [alias]);
 
-  // 如果有错误，显示错误页面
+  // 如果有错误，显示极简错误页面
   if (error) {
-    return (
-      <ErrorPage
-        title="加载失败"
-        message={error}
-        code="ERROR"
-        onRefresh={() => window.location.reload()}
-      />
-    );
+    return <ErrorPage title="加载失败" />;
   }
 
   // 加载中显示骨架屏
   if (loading) {
     return <BlogSkeleton />;
+  }
+
+  // 未找到内容，显示极简不存在页
+  if (!post) {
+    return <ErrorPage title="内容不存在" />;
   }
 
   return (

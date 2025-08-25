@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@heroui/react";
-import {
-  IconCalendar,
-  IconUser,
-  IconTag,
-  IconChevronRight,
-  IconBook2,
-} from "@tabler/icons-react";
+
+import { Calendar, UserRoundPen, Tag, ChevronRight, Book } from "lucide-react";
 import { getPostListAPI } from "@/api/post";
 import { formatDate, formatRelativeTime } from "@/utils/date";
 import type { PostVO } from "@/types/post";
@@ -90,13 +85,13 @@ export default function BlogList() {
   // 如果有错误，显示错误页面
   if (error) {
     return (
-      <ErrorPage
-        title="加载失败"
-        message={error}
-        code="ERROR"
-        onRefresh={() => window.location.reload()}
-      />
+      <ErrorPage title="加载失败" message="获取博客列表失败，请稍后重试" />
     );
+  }
+
+  // 如果无数据，直接显示极简空态，避免显示标题与总数
+  if (!loading && posts.length === 0) {
+    return <ErrorPage title="暂无博客内容" />;
   }
 
   return (
@@ -109,7 +104,7 @@ export default function BlogList() {
                 {/* 博客标题、总数和搜索框同一行 */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
                   <div className="flex items-center gap-2">
-                    <IconBook2 className="w-6 h-6" />
+                    <Book className="w-6 h-6" />
                     <span className="text-xl font-semibold">Posts</span>
                     <span className="text-gray-500 text-sm ml-2">
                       {pagination.total_count} 篇
@@ -147,9 +142,7 @@ export default function BlogList() {
                       </Card>
                     ))
                   ) : posts.length === 0 ? (
-                    <div className="text-center text-gray-400 dark:text-gray-500 py-12">
-                      暂无博客内容
-                    </div>
+                    <ErrorPage title="暂无博客内容" />
                   ) : (
                     posts.map((post) => (
                       <Card
@@ -166,7 +159,7 @@ export default function BlogList() {
                               </h2>
                               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
                                 <div className="flex items-center gap-1">
-                                  <IconCalendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                                  <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                                   <time
                                     dateTime={post.created_at}
                                     title={formatDate(post.created_at)}
@@ -175,7 +168,7 @@ export default function BlogList() {
                                   </time>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                  <IconUser className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                                  <UserRoundPen className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                                   <span>{post.author}</span>
                                 </div>
                               </div>
@@ -222,7 +215,7 @@ export default function BlogList() {
                                   href={`/tag/${tag}`}
                                   className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                                 >
-                                  <IconTag className="mr-1 h-3 w-3" />
+                                  <Tag className="mr-1 h-3 w-3" />
                                   {tag}
                                 </Link>
                               ))}
@@ -232,7 +225,7 @@ export default function BlogList() {
                             className="inline-flex items-center text-sm font-medium text-primary-600 transition-all duration-300 hover:text-primary-800 hover:translate-x-1 dark:text-primary-400 dark:hover:text-primary-200"
                           >
                             阅读更多
-                            <IconChevronRight className="ml-1 h-4 w-4" />
+                            <ChevronRight className="ml-1 h-4 w-4" />
                           </Link>
                         </CardFooter>
                       </Card>

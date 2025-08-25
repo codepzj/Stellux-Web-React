@@ -43,14 +43,7 @@ export function PersistentDocumentLayout({
   }, [location.pathname, rootAlias]);
 
   if (!document) {
-    return (
-      <ErrorPage
-        title="文档不存在"
-        message="抱歉，您访问的文档不存在或已被删除。"
-        code="404"
-        onRefresh={() => window.location.reload()}
-      />
-    );
+    return <ErrorPage title="文档不存在" showRefreshButton={false} />;
   }
 
   return (

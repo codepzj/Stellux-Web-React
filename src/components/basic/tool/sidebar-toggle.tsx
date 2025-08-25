@@ -1,5 +1,5 @@
 import { Button } from "@heroui/react";
-import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
+import { PanelRightOpen } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 
 export function SidebarToggle() {
@@ -17,7 +17,7 @@ export function SidebarToggle() {
       radius="full"
       variant="solid"
     >
-      <IconLayoutSidebarLeftCollapse className="w-5 h-5" />
+      <PanelRightOpen className="w-5 h-5" />
     </Button>
   );
 }

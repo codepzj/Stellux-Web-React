@@ -1,5 +1,5 @@
 import { Button } from "@heroui/react";
-import { IconArrowUp } from "@tabler/icons-react";
+import { ArrowUp } from "lucide-react";
 
 export function BackToTop() {
   return (
@@ -16,7 +16,7 @@ export function BackToTop() {
       variant="solid"
       className="fixed z-50 bottom-6 right-6 shadow-lg transition-opacity duration-300"
     >
-      <IconArrowUp className="w-5 h-5" />
+      <ArrowUp className="w-5 h-5" />
     </Button>
   );
 }

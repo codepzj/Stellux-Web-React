@@ -1,4 +1,4 @@
-import { IconCopy, IconCheck } from "@tabler/icons-react";
+import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@heroui/react";
 
@@ -32,9 +32,9 @@ const CopyButton = ({
       className={`p-0 w-8 h-8 min-w-8 min-h-8 rounded-md cursor-pointer hover:bg-default-100 dark:hover:bg-default-500/10 ${className}`}
     >
       {copied ? (
-        <IconCheck className="transition-transform duration-300" size={16} />
+        <Check className="transition-transform duration-300" size={16} />
       ) : (
-        <IconCopy className="transition-transform duration-300" size={16} />
+        <Copy className="transition-transform duration-300" size={16} />
       )}
     </Button>
   );
